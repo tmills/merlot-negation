@@ -1,4 +1,4 @@
-= cTAKES Negation Detector for the Merlot Corpus of French Medical Texts =
+# cTAKES Negation Detector for the Merlot Corpus of French Medical Texts
 
 This project is intended to be independent of the main cTAKES distribution. When
 it has successfully trained a model, that model could be included in cTAKES if
