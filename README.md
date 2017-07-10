@@ -9,14 +9,14 @@ and installing cTAKES manually.
 Instructions for getting started:
 
 1) Preprocess the brat annotation format into UIMA xmi files:
-```./preprocess.sh &lt;Brat location&gt; &lt;Directory for gold XMi files&gt;```
+```./preprocess.sh <Brat location> <Directory for gold XMi files>```
 
 2) Run the cTAKES cross-validation script to get results for 5-fold cross-validation on the training set:
-```./cv.sh &lt;Directory with gold XMI files&gt; &lt;Directory to store output xmi for evaluation&gt;```
+```./cv.sh <Directory with gold XMI files> <Directory to store output xmi for evaluation>```
 
 (At this point your terminal should show an evaluation. We continue on to get output in Brat format so that it may more easily be compared to other system outputs.)
 
 3) Convert the cTAKES output XMI into Brat format for running another evaluation:
-```./postprocess.sh &lt;Directory with xmi evaluation outputs&gt; &lt;Directory to store Brat output&gt;```
+```./postprocess.sh <Directory with xmi evaluation outputs> <Directory to store Brat output>```
 
 
