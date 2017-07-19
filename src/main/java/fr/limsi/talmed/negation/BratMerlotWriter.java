@@ -30,14 +30,17 @@ public class BratMerlotWriter extends JCasAnnotator_ImplBase {
         int entityIndex = 1;
 
         try (PrintWriter out = new PrintWriter(annFile)) {
-            for(IdentifiedAnnotation annot : JCasUtil.select(jCas, IdentifiedAnnotation.class)){
+            for(EventMention annot : JCasUtil.select(jCas, EventMention.class)){
                 String annType = null;
                 if(annot instanceof ProcedureMention) annType = "MedicalProcedure";
                 else if(annot instanceof DiseaseDisorderMention) annType = "Disorder";
                 else if(annot instanceof SignSymptomMention) annType = "SignOrSymptom";
-                else if(annot instanceof AnatomicalSiteMention) annType = "Anatomy";
                 else if(annot instanceof MedicationEventMention) annType = "Chemicals_Drugs";
-                else{
+                else if(annot.getSubject().equals(MerlotBratReaderAnnotator.CONCEPT_TYPE)) {
+                    annType = MerlotBratReaderAnnotator.CONCEPT_TYPE;
+                }else if(annot.getSubject().equals(MerlotBratReaderAnnotator.BIO_TYPE)) {
+                    annType = MerlotBratReaderAnnotator.BIO_TYPE;
+                }else{
                     System.err.println("Unknown span type: " + annot.getClass().getCanonicalName());
                     annType = "UnknownSpan";
                 }

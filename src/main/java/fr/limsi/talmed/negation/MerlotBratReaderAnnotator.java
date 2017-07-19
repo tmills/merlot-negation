@@ -32,10 +32,11 @@ public class MerlotBratReaderAnnotator extends JCasAnnotator_ImplBase {
 
     // annotations that correspond to ctakes semantic types
     public static final String PROC_TYPE = "MedicalProcedure";
-    public static final String ANAT_TYPE = "Anatomy";
     public static final String DISORDER_TYPE = "Disorder";
     public static final String SS_TYPE = "SignOrSymptom";
     public static final String DRUG_TYPE = "Chemicals_Drugs";
+    public static final String CONCEPT_TYPE = "Concept_Idea";
+    public static final String BIO_TYPE = "BiologicalProcessOrFunction";
 
     // relation type for negation:
     public static final String NEG_TYPE = "Negation";
@@ -112,16 +113,18 @@ public class MerlotBratReaderAnnotator extends JCasAnnotator_ImplBase {
                 setSpanAndDefaults(annotation, med, jCas);
                 med.addToIndexes();
                 id2annotation.put(annotation.getId(), med);
-            } else if (annotation.getType().equals(ANAT_TYPE)) {
-                AnatomicalSiteMention anat = new AnatomicalSiteMention(jCas);
-                setSpanAndDefaults(annotation, anat, jCas);
-                anat.addToIndexes();
-                id2annotation.put(annotation.getId(), anat);
-            } else if (annotation instanceof SpanAnnotation) {
-                IdentifiedAnnotation annot = new IdentifiedAnnotation(jCas);
-                setSpanAndDefaults(annotation, annot, jCas);
-                annot.addToIndexes();
-                id2annotation.put(annotation.getId(), annot);
+            } else if (annotation.getType().equals(CONCEPT_TYPE)) {
+                EventMention concept = new EventMention(jCas);
+                setSpanAndDefaults(annotation, concept, jCas);
+                concept.setSubject(CONCEPT_TYPE);
+                concept.addToIndexes();
+                id2annotation.put(annotation.getId(), concept);
+            } else if(annotation.getType().equals(BIO_TYPE)) {
+                EventMention bio = new EventMention(jCas);
+                setSpanAndDefaults(annotation, bio, jCas);
+                bio.setSubject(BIO_TYPE);
+                bio.addToIndexes();
+                id2annotation.put(annotation.getId(), bio);
             }
         }
         for(BratAnnotation annotation : delayedRelations) {

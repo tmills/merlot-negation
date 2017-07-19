@@ -23,6 +23,7 @@ public class CasToBratWriter {
     public static void main(String[] args) throws UIMAException, IOException {
         if(args.length < 2){
             System.err.println("Error: Two required arguments: <Input (XMI) directory> <Output (Brat) directory>");
+            System.exit(-1);
         }
         File inputDir = new File(args[0]);
         List<File> xmiFiles = Arrays.asList(inputDir.listFiles(new FilenameFilter() {
